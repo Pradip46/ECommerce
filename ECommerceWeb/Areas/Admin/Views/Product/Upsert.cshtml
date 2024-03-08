@@ -54,6 +54,15 @@
 
             <span asp-validation-for="Author" class="text-danger"></span>
         </div>
+        <div class="mb-3">
+            <label asp-for="CoverTypeId"></label>
+            <Select asp-for="CoverTypeId" asp-items="ViewBag.CoverTypeList" class="form-select">
+                <option disabled selected>---Select CoverType---</option>
+            </Select>
+
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>
+
 
 
 

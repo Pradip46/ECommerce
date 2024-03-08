@@ -43,6 +43,8 @@ namespace ECommerceWeb.Areas.Admin.Controllers
             if (id == null || id == 0)
             {
                 //Create product
+                ViewBag.CategoryList = CategoryList;
+                ViewBag.CoverTypeList = CoverTypeList;
                 return View(product);
             }
             else
