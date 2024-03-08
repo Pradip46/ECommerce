@@ -2,6 +2,7 @@
 using ECommerce.DataAccess.Repository;
 using ECommerce.DataAccess.Repository.IRepository;
 using ECommerce.Models;
+using ECommerce.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
@@ -26,26 +27,29 @@ namespace ECommerceWeb.Areas.Admin.Controllers
         //Get Upsert
         public IActionResult Upsert(int? id)
         {
-            Product product = new();
-            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(
-                u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString()
-                });
-            IEnumerable<SelectListItem> CoverTypeList = _unitOfWork.CoverType.GetAll().Select(
-                u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString()
-                });
+            ProductViewModel productVM = new()
+            {
+                Product = new(),
+                CategoryList = _unitOfWork.Category.GetAll().Select(
+                    i => new SelectListItem
+                    {
+                        Text = i.Name,
+                        Value = i.Id.ToString()
+                    }),
+                CoverTypeList = _unitOfWork.CoverType.GetAll().Select(
+                    i => new SelectListItem
+                    {
+                        Text = i.Name,
+                        Value = i.Id.ToString()
+                    })
+
+            };
 
             if (id == null || id == 0)
             {
                 //Create product
-                ViewBag.CategoryList = CategoryList;
-                ViewBag.CoverTypeList = CoverTypeList;
-                return View(product);
+                
+                return View(productVM);
             }
             else
             {
@@ -54,7 +58,7 @@ namespace ECommerceWeb.Areas.Admin.Controllers
                 
 
             }
-            return View(product);
+            return View(productVM);
 
 
 
